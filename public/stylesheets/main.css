@@ -1,0 +1,22 @@
+.error {
+	color: "red";
+}
+
+.tbd {
+	text-decoration: line-through;
+}
+
+.tbd::after {
+	content: " (to be done)";
+	    display: inline-block; /* To reset line-through */
+	    padding-left:.6em;
+	    font-size: 90%;
+}
+
+figcaption {
+	font-style: italic;
+}
+
+figure {
+	margin-top: 2em;
+}

@@ -1,0 +1,20 @@
+extends layout.jade
+
+block content
+  h1 Inkomstkollen
+  h2 Endpoints
+
+  p Den här tjänsten har följande endpoints:
+  dl
+
+    dt: code #[a(href="/incomes") /incomes]
+    dd Inkomster per rullande kvartal (json)
+
+    dt: code #[a(href="/people") /people]
+    dd Heltidstjänster per månad (json)
+
+    dt.tbd: code #[a(href="/chart") /chart]
+    dd Visualisering
+
+  h2 Versionering
+  p Använd ett <code>Accept-Version</code>-http-huvud för att specificera en version. Nuvarande defaultversion är <code>#{version}</code>

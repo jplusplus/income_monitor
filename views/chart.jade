@@ -1,0 +1,22 @@
+extends layout.jade
+
+block content
+  h1 Inkomstkollen
+
+  #container(style="min-width: 310px; height: 400px; margin: 0 auto", data-income_series=income_series, data-people_series=people_series)
+
+  script(src="https://code.jquery.com/jquery-3.1.1.min.js")
+  script(src="https://code.highcharts.com/highcharts.js")
+  script(src="https://code.highcharts.com/modules/exporting.js")
+  script.
+    var series = [{
+          name: 'Tjänster',
+          type: 'column',
+          yAxis: 1,
+          data: $('#container').data("people_series")
+        }, {
+          name: 'Fakturerat',
+          type: 'spline',
+          data: $('#container').data("income_series")
+        }]
+  script(src="/public/js/chart.js")
