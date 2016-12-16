@@ -74,7 +74,7 @@ server.get(/\/public\/?.*/, restify.serveStatic({
   directory: __dirname
 }))
 server.use(function(req, res, next){
-  if (req.query.jpp !== process.env.JPP_CODE){res.end(null)}
+  if (decodeURIComponent(req.query.jpp) !== process.env.JPP_CODE){res.end(null)}
   return next()
 })
 server.get('/incomes', incomes)
