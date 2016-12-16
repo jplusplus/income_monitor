@@ -28,10 +28,10 @@ var chart = function(req, res, next){
     url: 'http://localhost:8080',
     version: '*'
   })
-  client.get('/incomes', function(err, req, res, obj) {
+  client.get('/incomes?jpp='+process.env.JPP_CODE, function(err, req, res, obj) {
     var incomeData = obj
 
-    client.get('/people', function(err, req, res, obj) {
+    client.get('/people?jpp='+process.env.JPP_CODE, function(err, req, res, obj) {
       res_.end(pug.renderFile('views/chart.jade',{
         income_series: makeChartData(incomeData),
         people_series: makeChartData(obj)
@@ -44,7 +44,7 @@ var chart = function(req, res, next){
 // Logger
 // http://stackoverflow.com/questions/20626470/is-there-a-way-to-log-every-request-in-the-console-with-restify
 var log = new Logger.createLogger({
-  name: 'node-api',
+  name: 'inkomstkollen',
   serializers: {
       req: Logger.stdSerializers.req
   }
@@ -62,9 +62,9 @@ server.use(function(req, res, next){
   return next()
 })
 
-server.pre(function (request, response, next) {
+server.pre(function (req, res, next) {
   // Enable request logging:
-  request.log.info({ req: request }, 'REQUEST');
+  req.log.info({ req: req }, 'REQUEST')
   return next()
 })
 
@@ -73,6 +73,10 @@ server.get('/', index)
 server.get(/\/public\/?.*/, restify.serveStatic({
   directory: __dirname
 }))
+server.use(function(req, res, next){
+  if (req.query.jpp !== process.env.JPP_CODE){res.end(null)}
+  return next()
+})
 server.get('/incomes', incomes)
 server.get('/people', people)
 server.get('/chart', chart)
