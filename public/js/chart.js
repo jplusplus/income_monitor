@@ -59,9 +59,7 @@ $(function () {
     ],
     tooltip: {
         shared: true,
-        dateTimeLabelFormats:{
-          day:"%B %Y", // only show month
-        }
+        xDateFormat: "%B %Y",
     },
  
     plotOptions: {
