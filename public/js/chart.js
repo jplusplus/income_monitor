@@ -15,7 +15,7 @@ $(function () {
       drillUpText: "tillbaka till {series.name}",
       loading: "laddar…",
       months: [ "januari" , "februari" , "mars" , "april" , "maj" , "juni" , "juli" , "augusti" , "september" , "oktober" , "november" , "december"],
-      numericSymbols: [ "tusen" , "miljoner" , "miljarder" , "biljoner" , "biljarder" , "triljoner"],
+      numericSymbols: [ " t." , " milj." , " mdr." , " bilj." , " biljarder" , " triljoner"],
       printChart: "skriv ut",
       resetZoom: "återställ",
       resetZoomTitle: "återställ zoomnivån",
@@ -35,6 +35,9 @@ $(function () {
       type: 'datetime',
       title: {
         text: 'Månad'
+      },
+      dateTimeLabelFormats:{
+        month:"%b %Y",
       },
       min: income_series[income_series.length - 1][0]-1e9,
       max: income_series[0][0]+1e9,
@@ -56,8 +59,11 @@ $(function () {
     ],
     tooltip: {
         shared: true,
+        dateTimeLabelFormats:{
+          day:"%B %Y", // only show month
+        }
     },
-
+ 
     plotOptions: {
         spline: {
             marker: {
@@ -74,7 +80,10 @@ $(function () {
         }, {
           name: 'Fakturerat',
           type: 'spline',
-          data: income_series
+          data: income_series,
+          tooltip: {
+            valueSuffix: " kronor"
+          }
         }]
   });
 });
