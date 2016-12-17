@@ -7,54 +7,11 @@ var Logger = require('bunyan')
 // Routes
 var incomes = require(__dirname + '/routes/v1/incomes.js')
 var people = require(__dirname + '/routes/v1/people.js')
+var chart = require(__dirname + '/routes/v1/chart.js')
 var index = function(req, res, next){
   res.end(pug.renderFile('views/index.jade',
                          {version: process.env.DEFAULT_API_VERSION})
   )
-}
-var makeChartData = function (data){
-  var chartData = []
-  data.forEach(function(point){
-    chartData.push([
-      Date.parse(point.label),
-      point.value
-    ])
-  })
-  return chartData
-}
-var callEndpoint = function(client, endpoint, callback){
-  var cb = callback
-  client.get(
-    '/'+endpoint+'?jpp='+process.env.JPP_CODE,
-    function(err, req, res, obj) {
-      cb(err, obj)
-    }
-  )
-}
-var chart = function(req, res, next){
-  var res_ = res
-  // get data
-  var client = restify.createJsonClient({
-    url: 'http://localhost:'+ (process.env.PORT || 8080),
-    version: '*'
-  })
-  async.parallel(
-    {
-      incomes: function(callback) {
-        callEndpoint(client, "incomes", callback)
-      },
-      people: function(callback) {
-        callEndpoint(client, "people", callback)
-      }
-    },
-    function(err, results) {
-      res_.end(pug.renderFile('views/chart.jade', {
-        income_series: makeChartData(results.incomes),
-        people_series: makeChartData(results.people)
-      }))
-    }
-  ) // async
-
 }
 
 // Logger
