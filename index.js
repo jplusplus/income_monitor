@@ -35,7 +35,7 @@ var chart = function(req, res, next){
   var res_ = res
   // get data
   var client = restify.createJsonClient({
-    url: 'http://jpp-inkomstkollen.herokuapp.com',
+    url: 'http://localhost:'+ (process.env.PORT || 8080),
     version: '*'
   })
   async.parallel(
