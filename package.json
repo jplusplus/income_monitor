@@ -4,7 +4,7 @@
   "description": "Keeping an eye on the cash",
   "main": "index.js",
   "dependencies": {
-    "async": "^2.0.1",
+    "async": "^2.1.4",
     "bunyan": "^1.8.1",
     "node-fetch": "^1.6.3",
     "pug": "^2.0.0-beta6",
