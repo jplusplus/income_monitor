@@ -3,6 +3,27 @@ $(function () {
   var income_series = container.data("income_series")
   var people_series = container.data("people_series")
 
+  Highcharts.setOptions({
+    lang: {
+      contextButtonTitle: "meny",
+      exportButtonTitle: "ladda ner",
+      decimalPoint: ",",
+      downloadJPEG: "ladda ner som JPEG-bild",
+      downloadPDF: "ladda ner som PDF",
+      downloadPNG: "ladda ner som PNG-bild",
+      downloadSVG: "ladda ner som SVG-bild",
+      drillUpText: "tillbaka till {series.name}",
+      loading: "laddar…",
+      months: [ "januari" , "februari" , "mars" , "april" , "maj" , "juni" , "juli" , "augusti" , "september" , "oktober" , "november" , "december"],
+      numericSymbols: [ "tusen" , "miljoner" , "miljarder" , "biljoner" , "biljarder" , "triljoner"],
+      printChart: "skriv ut",
+      resetZoom: "återställ",
+      resetZoomTitle: "återställ zoomnivån",
+      shortMonths: [ "jan" , "feb" , "mar" , "apr" , "maj" , "jun" , "jul" , "aug" , "sep" , "okt" , "nov" , "dec"],
+      thousandsSep: " ",
+      weekdays: ["söndag", "måndag", "tisdag", "onsdag", "torsdag", "fredag", "lördag"]
+    }
+  });
   Highcharts.chart('container', {
     title: {
       text: 'Intäkter och anställda'
