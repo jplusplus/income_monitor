@@ -109,7 +109,7 @@ module.exports = function(req, res, next){
         key3 = monthKeys[i+2]
         rollingQuarters.push({
           label: key1,
-          value: (monthSums[key1] + monthSums[key2] + monthSums[key3]) / 3
+          value: parseInt((monthSums[key1] + monthSums[key2] + monthSums[key3]) / 3)
         })
       }
       res.end(JSON.stringify(rollingQuarters))
