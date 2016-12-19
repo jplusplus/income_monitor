@@ -36,7 +36,6 @@ module.exports = function(req, res, next){
       var months = {}
 
       cards.forEach(function(card){
-        console.log(card)
         /* Loop through a batch of cards */
   
         // Get date the card was moved to the invoice list
