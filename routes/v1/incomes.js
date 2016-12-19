@@ -4,7 +4,7 @@ var fetch = require('node-fetch')
 var totalPattern = /\*\*\s?Summa:\s?\*\*(.*)/
 
 module.exports = function(req, res, next){
-  var uri = 'https://api.trello.com/1/lists/'+process.env.LIST_ID+'/cards'
+  var uri = 'https://api.trello.com/1/boards/'+process.env.BOARD_ID+'/cards'
   var lastDate = null
   //FIXME paginate!
 
@@ -36,13 +36,14 @@ module.exports = function(req, res, next){
       var months = {}
 
       cards.forEach(function(card){
+        console.log(card)
         /* Loop through a batch of cards */
   
         // Get date the card was moved to the invoice list
         var date = null
         card.actions.forEach(function(action){
           if ("listAfter" in action.data
-              && (action.data.listAfter.name === 'Klara att fakturera')){
+              && (action.data.listAfter.name === process.env.LIST_NAME)){
             lastDate = action.date
             date = lastDate.substring(0,7) // 2016-10
           }
@@ -62,12 +63,12 @@ module.exports = function(req, res, next){
             "usd": "USD",
             "dollar": "USD",
             "eur": "EUR",
-            "€": "EUR"
+            "€": "EUR",
           }
           var xrates = {
             SEK: 1,
             USD: 9,
-            EUR: 1
+            EUR: 1,
           }
           Object.keys(currencies).forEach(function(key){
             var total_low = total.toLowerCase()
